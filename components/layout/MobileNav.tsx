@@ -4,9 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { primaryNav, quoteCta } from "./navigation";
 import { Button } from "@/components/ui/Button";
-import { MenuIcon, CloseIcon } from "@/components/ui/icons";
+import { MenuIcon, CloseIcon, PhoneIcon } from "@/components/ui/icons";
 
-export function MobileNav() {
+interface MobileNavProps {
+  phone: string;
+  isPlaceholderPhone: boolean;
+}
+
+export function MobileNav({ phone, isPlaceholderPhone }: MobileNavProps) {
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -75,9 +80,18 @@ export function MobileNav() {
             ))}
           </nav>
 
-          <div className="px-4">
+          <div className="flex flex-col gap-3 px-4">
             <Button href={quoteCta.href} variant="primary" className="w-full" onClick={close}>
               {quoteCta.label}
+            </Button>
+            <Button
+              href={`tel:${phone.replace(/\s+/g, "")}`}
+              variant="secondary"
+              className="flex w-full items-center justify-center gap-2"
+              title={isPlaceholderPhone ? "Placeholder number — update in Site Settings" : undefined}
+            >
+              <PhoneIcon width={16} height={16} />
+              Call Us
             </Button>
           </div>
         </div>
