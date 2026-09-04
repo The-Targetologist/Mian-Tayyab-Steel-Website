@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+/*
+  MTS design tokens — docs/07-design-system.md
+  Status: Provisional — pending final brand/logo approval.
+  Swap only the values here (not token names) once final brand assets arrive.
+*/
+@theme {
+  /* Brand — blue industrial */
+  --color-brand-950: #0b1e33;
+  --color-brand-900: #102a45;
+  --color-brand-800: #16395c;
+  --color-brand-700: #1d4e79;
+  --color-brand-600: #26629a;
+  --color-brand-500: #3878b5;
+  --color-brand-100: #dce7f0;
+  --color-brand-50: #f1f5f9;
+
+  /* Neutral — steel grey / charcoal (overrides matching Tailwind default shades) */
+  --color-neutral-950: #14171a;
+  --color-neutral-900: #1d2226;
+  --color-neutral-700: #3d4448;
+  --color-neutral-500: #6b7378;
+  --color-neutral-300: #a8aeb2;
+  --color-neutral-200: #c9cdd0;
+  --color-neutral-100: #e4e6e8;
+  --color-neutral-50: #f5f6f7;
+
+  --color-background: #ffffff;
+  --color-foreground: var(--color-neutral-900);
+
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+
+  /*
+    Typography scale — docs/07-design-system.md §2.
+    Base value is the mobile size; pair with `lg:` for the desktop size
+    where a "-lg" counterpart exists, e.g. className="text-h1 lg:text-h1-lg".
+  */
+  --text-display: 2.25rem;
+  --text-display-lg: 3rem;
+  --text-h1: 2rem;
+  --text-h1-lg: 2.5rem;
+  --text-h2: 1.75rem;
+  --text-h2-lg: 2rem;
+  --text-h3: 1.375rem;
+  --text-h3-lg: 1.5rem;
+  --text-h4: 1.25rem;
+  --text-h5: 1.125rem;
+  --text-body-lg: 1.125rem;
+  --text-body: 1rem;
+  --text-body-sm: 0.875rem;
+  --text-caption: 0.75rem;
+
+  /* Restrained radius — industrial, not soft/rounded */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 120ms;
+  --duration-normal: 200ms;
+  --duration-slow: 320ms;
+}
+
+:root {
+  /* Container widths — consumed by the Container primitive (docs/08-component-system.md, Phase 2) */
+  --container-sm: 40rem;
+  --container-md: 56rem;
+  --container-lg: 72rem;
+  --container-xl: 82.5rem;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
+
+/* Tailwind v4's Preflight dropped v3's default `cursor: pointer` on
+   <button> (matching raw browser behavior instead) — every plain <button>
+   sitewide silently lost its pointer cursor as a result. Restored globally
+   here (one rule, future buttons included) rather than patching
+   `cursor-pointer` onto dozens of individual call sites one at a time.
+   Disabled buttons and anything marked aria-disabled correctly keep the
+   default cursor. */
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
